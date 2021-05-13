@@ -5,8 +5,6 @@ the page object for the SwagLabs login page.
 
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 
 
 class SwagLabsLoginPage:
@@ -41,6 +39,13 @@ class SwagLabsLoginPage:
     def error_exists(self):
         try:
             self.browser.find_element(*self.LOGIN_ERROR)
+        except NoSuchElementException:
+            return False
+        return True
+
+    def verify_page(self):
+        try:
+            login_button = self.browser.find_element(*self.LOGIN_BUTTON)
         except NoSuchElementException:
             return False
         return True
