@@ -5,6 +5,8 @@ the page object for the SwagLabs login page.
 
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 
 class SwagLabsLoginPage:
@@ -14,7 +16,7 @@ class SwagLabsLoginPage:
     USER_INPUT = (By.ID, 'user-name')
     PASSWORD_INPUT = (By.ID, 'password')
     LOGIN_BUTTON = (By.ID, 'login-button')
-    LOGIN_ERROR = (By.CLASS_NAME, 'error-button')
+    LOGIN_ERROR = (By.XPATH, '//h3[@data-test="error"]')
 
     # Initializer
     def __init__(self, browser):
@@ -32,13 +34,11 @@ class SwagLabsLoginPage:
         login_button = self.browser.find_element(*self.LOGIN_BUTTON)
         login_button.click()
 
-    def error_button_text(self):
-        # TODO Implement a smart wait for the error text
+    def error_text(self):
         error = self.browser.find_element(*self.LOGIN_ERROR)
         return error.text
 
-    def error_button_exists(self):
-        # TODO implement a smart wait for the error to exist
+    def error_exists(self):
         try:
             self.browser.find_element(*self.LOGIN_ERROR)
         except NoSuchElementException:

@@ -28,6 +28,7 @@ def test_login(browser):
 @pytest.mark.parametrize('username,password',
                          [('incorrect_user', 'secret_sauce'), ('standard_user', 'special_sauce')])
 def test_incorrect_login(browser, username, password):
+
     login_page = SwagLabsLoginPage(browser)
 
     # Given the SwagLabs login page is displayed
@@ -37,7 +38,24 @@ def test_incorrect_login(browser, username, password):
     login_page.login(username, password)
 
     # Then the user cannot log in
-    assert login_page.error_button_exists()
+    assert login_page.error_exists()
 
     # And an error message is displayed on the login page
-    assert 'epic sadface' in login_page.error_button_text()
+    assert 'Username and password do not match any user in this service' in login_page.error_text()
+
+
+def test_locked_out_user(browser):
+
+    login_page = SwagLabsLoginPage(browser)
+
+    # Given the SwagLabs login page is displayed
+    login_page.load()
+
+    # When the user enters the locked out user's username and password
+    login_page.login('locked_out_user', 'secret_sauce')
+
+    # Then the user is not logged in
+    assert login_page.error_exists()
+
+    # And an error message is displayed on the login page indicating the user is locked out
+    assert 'Sorry, this user has been locked out.' in login_page.error_text()
