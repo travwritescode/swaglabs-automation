@@ -22,7 +22,7 @@ def test_logout(browser, login_user):
     context_menu = SwagLabsContextMenu(browser)
     login_page = SwagLabsLoginPage(browser)
 
-    #Given the user is logged in to SwagLabs
+    # Given the user is logged in to SwagLabs
 
     # When the user logs out
     context_menu.logout()
