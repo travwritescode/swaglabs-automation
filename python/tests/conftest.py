@@ -5,6 +5,7 @@ This module contains shared fixtures.
 import json
 import pytest
 import selenium.webdriver
+from pages.login import SwagLabsLoginPage
 
 
 @pytest.fixture
@@ -46,3 +47,13 @@ def browser(config):
 
     # Quit the WebDriver instance for the cleanup
     b.quit()
+
+
+@pytest.fixture()
+def login_user(browser):
+
+    login_page = SwagLabsLoginPage(browser)
+
+    # Log in user for test
+    login_page.load()
+    login_page.login('standard_user', 'secret_sauce')

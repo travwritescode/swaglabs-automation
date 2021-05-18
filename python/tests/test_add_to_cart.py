@@ -2,56 +2,60 @@
 These tests cover adding items to the cart in Swag Labs
 """
 
-import pytest
 import random
 from pages.products import SwagLabsProducts
-from pages.login import SwagLabsLoginPage
-
-
-@pytest.fixture()
-def login_user(browser):
-
-    # TODO move this fixture into a shared file for all tests
-    login_page = SwagLabsLoginPage(browser)
-
-    # Log in user for test
-    login_page.load()
-    login_page.login('standard_user', 'secret_sauce')
-
-    # TODO add cleanup to the fixture to reset app state at the end of tests
 
 
 def test_add_items_to_cart(browser, login_user):
 
+    # Given the user is on the Swag Labs products page
     products_page = SwagLabsProducts(browser)
 
-    # Given the user is on the Swag Labs products page
     # When the user adds products to the cart
     list_of_product_indexes = random_inventory_items()
-
-    # Debug
-    print(list_of_product_indexes)
-
-    product_dict = {}
     for i in list_of_product_indexes:
-        product_dict.update(products_page.add_inventory_item_to_cart(i))
+        products_page.add_inventory_item_to_cart(i).click()
 
-    # Then the products' button changes to "Remove From Cart"
-    # TODO Add verification of button change for each item
+        # Then the products' button changes to "Remove From Cart"
+        assert products_page.inventory_item_in_cart(i).text.lower() == 'remove'
 
     # And the cart badge number reflects the number of items in the cart
-    # TODO Add verification of cart badge
+    assert int(products_page.cart_badge().text) == len(list_of_product_indexes)
 
-    # Manual Inspection for debugging
-    # import time
-    # time.sleep(10)
+
+def test_remove_items_from_cart_products_page(browser, login_user):
+
+    # Given the user is on the Swag Labs products page
+    products_page = SwagLabsProducts(browser)
+
+    # And the user has added items to their cart
+    list_of_product_indexes = random_inventory_items()
+    for i in list_of_product_indexes:
+        products_page.add_inventory_item_to_cart(i).click()
+
+    # When the user clicks the "Remove" button
+        products_page.inventory_item_in_cart(i).click()
+
+    # Then the item is removed from their cart
+        assert products_page.add_inventory_item_to_cart(i).text.lower() == 'add to cart'
+    assert products_page.cart_badge_does_not_exist()
+
+
+def test_remove_items_from_cart_cart_page(browser, login_user):
+
+    # Given the user has added items to their cart
+    products_page = SwagLabsProducts(browser)
+
+    # And the user is on the cart page
+    # TODO Implement cart page model
+
+    # When the user clicks "Remove" on an item
+
+    # Then the item is removed from the cart
 
 
 def random_inventory_items():
     number_of_items = random.randint(1, 6)
-
-    # Debug
-    print(number_of_items)
 
     item_numbers = []
     for i in range(0, number_of_items):
