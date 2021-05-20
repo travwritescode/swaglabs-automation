@@ -4,6 +4,7 @@ These tests cover adding items to the cart in Swag Labs
 
 import random
 from pages.products import SwagLabsProducts
+from pages.cart import SwagLabsCart
 
 
 def test_add_items_to_cart(browser, login_user):
@@ -14,7 +15,7 @@ def test_add_items_to_cart(browser, login_user):
     # When the user adds products to the cart
     list_of_product_indexes = random_inventory_items()
     for i in list_of_product_indexes:
-        products_page.add_inventory_item_to_cart(i).click()
+        products_page.add_inventory_item_to_cart(i)
 
         # Then the products' button changes to "Remove From Cart"
         assert products_page.inventory_item_in_cart(i).text.lower() == 'remove'
@@ -31,27 +32,35 @@ def test_remove_items_from_cart_products_page(browser, login_user):
     # And the user has added items to their cart
     list_of_product_indexes = random_inventory_items()
     for i in list_of_product_indexes:
-        products_page.add_inventory_item_to_cart(i).click()
+        products_page.add_inventory_item_to_cart(i)
 
     # When the user clicks the "Remove" button
         products_page.inventory_item_in_cart(i).click()
 
     # Then the item is removed from their cart
-        assert products_page.add_inventory_item_to_cart(i).text.lower() == 'add to cart'
+        assert products_page.inventory_item_in_cart(i).text.lower() == 'add to cart'
     assert products_page.cart_badge_does_not_exist()
 
 
 def test_remove_items_from_cart_cart_page(browser, login_user):
+    products_page = SwagLabsProducts(browser)
+    cart_page = SwagLabsCart(browser)
 
     # Given the user has added items to their cart
-    products_page = SwagLabsProducts(browser)
+    items_in_cart = {}
+    list_of_product_indexes = random_inventory_items()
+    for i in list_of_product_indexes:
+        items_in_cart.update(products_page.add_inventory_item_to_cart(i))
 
     # And the user is on the cart page
-    # TODO Implement cart page model
+    products_page.cart_link().click()
+    assert cart_page.cart_page_title().text.lower() == 'your cart'
 
     # When the user clicks "Remove" on an item
+    cart_page.remove_cart_items()
 
     # Then the item is removed from the cart
+    assert cart_page.is_cart_empty()
 
 
 def random_inventory_items():

@@ -17,6 +17,7 @@ class SwagLabsProducts:
     INVENTORY_ADD_TO_CART = (By.XPATH, './/button[contains(@id, "add-to-cart-")]')
     INVENTORY_REMOVE_FROM_CART = (By.XPATH, './/button[contains(@id, "remove-")]')
     SHOPPING_CART_BADGE = (By.CLASS_NAME, 'shopping_cart_badge')
+    SHOPPING_CART_LINK = By.CLASS_NAME, 'shopping_cart_link'
 
     # Initializer
     def __init__(self, browser):
@@ -37,10 +38,16 @@ class SwagLabsProducts:
         return self.browser.find_elements(*self.INVENTORY_ITEM_CARDS)[index]
 
     def add_inventory_item_to_cart(self, index):
+        name_and_price = {}
         inventory_item = self.get_inventory_item(index)
 
         add_to_cart_button = inventory_item.find_element(*self.INVENTORY_ADD_TO_CART)
-        return add_to_cart_button
+        add_to_cart_button.click()
+
+        name_and_price[inventory_item.find_element(*self.INVENTORY_ITEM_NAME).text] \
+            = inventory_item.find_element(*self.INVENTORY_ITEM_PRICE).text
+
+        return name_and_price
 
     def inventory_item_in_cart(self, index):
         inventory_item = self.get_inventory_item(index)
@@ -53,6 +60,9 @@ class SwagLabsProducts:
 
         remove_button = inventory_item.find_element(*self.INVENTORY_REMOVE_FROM_CART)
         remove_button.click()
+
+    def cart_link(self):
+        return self.browser.find_element(*self.SHOPPING_CART_LINK)
 
     def cart_badge(self):
         return self.browser.find_element(*self.SHOPPING_CART_BADGE)
