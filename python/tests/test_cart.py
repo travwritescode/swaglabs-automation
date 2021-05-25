@@ -63,6 +63,27 @@ def test_remove_items_from_cart_cart_page(browser, login_user):
     assert cart_page.is_cart_empty()
 
 
+def test_continue_shopping(browser, login_user):
+    products_page = SwagLabsProducts(browser)
+    cart_page = SwagLabsCart(browser)
+
+    # Given the user is on the cart page
+    list_of_product_indexes = random_inventory_items()
+    for i in list_of_product_indexes:
+        products_page.add_inventory_item_to_cart_by_index(i)
+    number_of_items_in_cart = int(products_page.get_cart_badge().text)
+    products_page.open_shopping_cart().click()
+
+    # When the user clicks the Continue Shopping button
+    cart_page.click_continue_shopping_button()
+
+    # Then the user is returned to the inventory page
+    assert products_page.title().lower() == 'products'
+
+    # And the cart remains the same
+    assert int(products_page.get_cart_badge().text) == number_of_items_in_cart
+
+
 def random_inventory_items():
     number_of_items = random.randint(1, 6)
 

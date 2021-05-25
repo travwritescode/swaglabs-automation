@@ -14,6 +14,7 @@ class SwagLabsCart:
     CART_ITEM_TITLE = (By.XPATH, './/div[class="inventory_item_name"]')
     CART_ITEM_PRICE = (By.XPATH, './/div[class="inventory_item_price"]')
     CART_ITEM_REMOVE_FROM_CART = (By.XPATH, './/button[contains(@id, "remove-")]')
+    CONTINUE_SHOPPING_BUTTON = (By.ID, 'continue-shopping')
 
     # Initializer
     def __init__(self, browser):
@@ -44,3 +45,8 @@ class SwagLabsCart:
             return True
         else:
             return False
+
+    def click_continue_shopping_button(self):
+        continue_shopping_button = self.browser.find_element(*self.CONTINUE_SHOPPING_BUTTON)
+
+        continue_shopping_button.click()

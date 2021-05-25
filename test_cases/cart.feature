@@ -20,3 +20,4 @@ Scenario: Customer can return to the inventory page from the cart page
   Given the user is on the cart page
   When the user clicks the Continue Shopping button
   Then the user is returned to the inventory page
+  And the cart remains the same
