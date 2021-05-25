@@ -61,22 +61,22 @@ class SwagLabsProducts:
     def get_inventory_item_add_to_cart_button_by_index(self, index):
         inventory_item = self.get_inventory_item_by_index(index)
 
-        add_to_cart_button = inventory_item.find_element \
-            (*self.INVENTORY_ADD_TO_CART)
+        add_to_cart_button = inventory_item.find_element(
+            *self.INVENTORY_ADD_TO_CART)
         return add_to_cart_button
 
     def get_inventory_item_remove_button(self, index):
         inventory_item = self.get_inventory_item_by_index(index)
 
-        remove_button = inventory_item.find_element \
-            (*self.INVENTORY_REMOVE_FROM_CART)
+        remove_button = inventory_item.find_element(
+            *self.INVENTORY_REMOVE_FROM_CART)
         return remove_button
 
     def remove_inventory_item_from_cart(self, index):
         inventory_item = self.get_inventory_item_by_index(index)
 
-        remove_button = inventory_item.find_element \
-            (*self.INVENTORY_REMOVE_FROM_CART)
+        remove_button = inventory_item.find_element(
+            *self.INVENTORY_REMOVE_FROM_CART)
         remove_button.click()
 
     def open_shopping_cart(self):

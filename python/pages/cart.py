@@ -47,7 +47,7 @@ class SwagLabsCart:
             return False
 
     def click_continue_shopping_button(self):
-        continue_shopping_button = self.browser.find_element \
-            (*self.CONTINUE_SHOPPING_BUTTON)
+        continue_shopping_button = self.browser.find_element(
+            *self.CONTINUE_SHOPPING_BUTTON)
 
         continue_shopping_button.click()

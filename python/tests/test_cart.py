@@ -18,8 +18,8 @@ def test_add_items_to_cart(browser, login_user):
 
         # Then the products' button changes to "Remove From Cart"
         assert products_page.get_inventory_item_remove_button(i) \
-                   .text \
-                   .lower() == 'remove'
+            .text \
+            .lower() == 'remove'
 
     # And the cart badge number reflects the number of items in the cart
     assert int(products_page.get_cart_badge().text) == \
@@ -39,10 +39,9 @@ def test_remove_items_from_cart_products_page(browser, login_user):
         products_page.get_inventory_item_remove_button(i).click()
 
         # Then the item is removed from their cart
-        assert products_page. \
-                   get_inventory_item_add_to_cart_button_by_index(i). \
-                   text. \
-                   lower() == 'add to cart'
+        assert products_page.get_inventory_item_add_to_cart_button_by_index(i) \
+            .text \
+            .lower() == 'add to cart'
     assert products_page.cart_badge_does_not_exist()
 
 
