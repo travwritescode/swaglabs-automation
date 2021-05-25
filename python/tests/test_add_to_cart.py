@@ -15,13 +15,13 @@ def test_add_items_to_cart(browser, login_user):
     # When the user adds products to the cart
     list_of_product_indexes = random_inventory_items()
     for i in list_of_product_indexes:
-        products_page.add_inventory_item_to_cart(i)
+        products_page.add_inventory_item_to_cart_by_index(i)
 
         # Then the products' button changes to "Remove From Cart"
-        assert products_page.inventory_item_in_cart(i).text.lower() == 'remove'
+        assert products_page.get_inventory_item_remove_button(i).text.lower() == 'remove'
 
     # And the cart badge number reflects the number of items in the cart
-    assert int(products_page.cart_badge().text) == len(list_of_product_indexes)
+    assert int(products_page.get_cart_badge().text) == len(list_of_product_indexes)
 
 
 def test_remove_items_from_cart_products_page(browser, login_user):
@@ -32,13 +32,13 @@ def test_remove_items_from_cart_products_page(browser, login_user):
     # And the user has added items to their cart
     list_of_product_indexes = random_inventory_items()
     for i in list_of_product_indexes:
-        products_page.add_inventory_item_to_cart(i)
+        products_page.add_inventory_item_to_cart_by_index(i)
 
     # When the user clicks the "Remove" button
-        products_page.inventory_item_in_cart(i).click()
+        products_page.get_inventory_item_remove_button(i).click()
 
     # Then the item is removed from their cart
-        assert products_page.inventory_item_in_cart(i).text.lower() == 'add to cart'
+        assert products_page.get_inventory_item_add_to_cart_button_by_index(i).text.lower() == 'add to cart'
     assert products_page.cart_badge_does_not_exist()
 
 
@@ -50,10 +50,10 @@ def test_remove_items_from_cart_cart_page(browser, login_user):
     items_in_cart = {}
     list_of_product_indexes = random_inventory_items()
     for i in list_of_product_indexes:
-        items_in_cart.update(products_page.add_inventory_item_to_cart(i))
+        items_in_cart.update(products_page.add_inventory_item_to_cart_by_index(i))
 
     # And the user is on the cart page
-    products_page.cart_link().click()
+    products_page.open_shopping_cart().click()
     assert cart_page.cart_page_title().text.lower() == 'your cart'
 
     # When the user clicks "Remove" on an item

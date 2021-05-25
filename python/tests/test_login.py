@@ -22,7 +22,7 @@ def test_login(browser):
     assert products_page.title().lower() == 'products'
 
     # And the products page is displayed
-    assert len(products_page.product_names()) == 6
+    assert len(products_page.get_product_names()) == 6
 
 
 @pytest.mark.parametrize('username,password',

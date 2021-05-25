@@ -39,8 +39,8 @@ class SwagLabsCart:
         return name_and_price
 
     def is_cart_empty(self):
-        try:
-            self.get_cart_items()
-            return False
-        except NoSuchElementException:
+        cart_items = self.browser.find_elements(*self.CART_ITEM)
+        if len(cart_items) == 0:
             return True
+        else:
+            return False

@@ -24,22 +24,22 @@ class SwagLabsProducts:
         self.browser = browser
 
     # Interaction Methods
-    def product_names(self):
+    def get_product_names(self):
         product_names = self.browser.find_elements(*self.INVENTORY_ITEM_NAME)
         names = [product.text for product in product_names]
         return names
 
-    def product_prices(self):
+    def get_product_prices(self):
         product_prices = self.browser.find_elements(*self.INVENTORY_ITEM_PRICE)
         prices = [price.text for price in product_prices]
         return prices
 
-    def get_inventory_item(self, index):
+    def get_inventory_item_by_index(self, index):
         return self.browser.find_elements(*self.INVENTORY_ITEM_CARDS)[index]
 
-    def add_inventory_item_to_cart(self, index):
+    def add_inventory_item_to_cart_by_index(self, index):
         name_and_price = {}
-        inventory_item = self.get_inventory_item(index)
+        inventory_item = self.get_inventory_item_by_index(index)
 
         add_to_cart_button = inventory_item.find_element(*self.INVENTORY_ADD_TO_CART)
         add_to_cart_button.click()
@@ -49,22 +49,28 @@ class SwagLabsProducts:
 
         return name_and_price
 
-    def inventory_item_in_cart(self, index):
-        inventory_item = self.get_inventory_item(index)
+    def get_inventory_item_add_to_cart_button_by_index(self, index):
+        inventory_item = self.get_inventory_item_by_index(index)
+
+        add_to_cart_button = inventory_item.find_element(*self.INVENTORY_ADD_TO_CART)
+        return add_to_cart_button
+
+    def get_inventory_item_remove_button(self, index):
+        inventory_item = self.get_inventory_item_by_index(index)
 
         remove_button = inventory_item.find_element(*self.INVENTORY_REMOVE_FROM_CART)
         return remove_button
 
-    def inventory_item_remove_from_cart(self, index):
-        inventory_item = self.get_inventory_item(index)
+    def remove_inventory_item_from_cart(self, index):
+        inventory_item = self.get_inventory_item_by_index(index)
 
         remove_button = inventory_item.find_element(*self.INVENTORY_REMOVE_FROM_CART)
         remove_button.click()
 
-    def cart_link(self):
+    def open_shopping_cart(self):
         return self.browser.find_element(*self.SHOPPING_CART_LINK)
 
-    def cart_badge(self):
+    def get_cart_badge(self):
         return self.browser.find_element(*self.SHOPPING_CART_BADGE)
 
     def cart_badge_does_not_exist(self):
