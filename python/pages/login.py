@@ -45,7 +45,7 @@ class SwagLabsLoginPage:
 
     def verify_page(self):
         try:
-            login_button = self.browser.find_element(*self.LOGIN_BUTTON)
+            self.browser.find_element(*self.LOGIN_BUTTON)
         except NoSuchElementException:
             return False
         return True
