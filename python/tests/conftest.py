@@ -6,13 +6,15 @@ import json
 import pytest
 import selenium.webdriver
 from pages.login import SwagLabsLoginPage
+from pathlib import Path
 
 
 @pytest.fixture
 def config(scope='session'):
 
     # Read the file
-    with open('../config.json') as config_file:
+    p = Path('../config.json').resolve()
+    with open(p) as config_file:
         config = json.load(config_file)
 
     # Assert values are acceptable
