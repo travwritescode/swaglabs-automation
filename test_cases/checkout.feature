@@ -5,6 +5,7 @@ Scenario: Customer can checkout with their cart from the Swag Labs store
   Then they are prompted to fill in their personal information
   When the customer clicks the continue button
   Then a checkout overview confirmation page is displayed
+  And all information about products and pricing looks correct
   When the customer clicks the finish button
   Then a thank you message is displayed on the checkout complete page
   When the customer clicks the back home button
