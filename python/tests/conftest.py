@@ -13,7 +13,10 @@ from pathlib import Path
 def config(scope='session'):
 
     # Read the file
-    p = Path('./config.json').resolve()
+    # CI/CD config
+    p = Path('./python/config.json').resolve()
+    # Local config
+    # p = Path('./config.json').resolve()
     with open(p) as config_file:
         config = json.load(config_file)
 
