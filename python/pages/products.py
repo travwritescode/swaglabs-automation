@@ -99,6 +99,6 @@ class SwagLabsProducts:
         except NoSuchElementException:
             return True
 
-    def title(self):
+    def get_title(self):
         title = self.browser.find_element(*self.TITLE)
         return title.text

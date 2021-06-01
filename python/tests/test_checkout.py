@@ -61,4 +61,4 @@ def test_checkout(browser, login_user):
     checkout_page.return_home()
 
     # Then they are returned to the products page
-    assert products_page.title().lower() == 'products'
+    assert products_page.get_title().lower() == 'products'

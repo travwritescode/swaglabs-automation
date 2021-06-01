@@ -101,7 +101,7 @@ def test_continue_shopping(browser, login_user):
     cart_page.click_continue_shopping_button()
 
     # Then the user is returned to the inventory page
-    assert products_page.title().lower() == 'products'
+    assert products_page.get_title().lower() == 'products'
 
     # And the cart remains the same
     assert int(products_page.get_cart_badge().text) == number_of_items_in_cart

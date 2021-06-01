@@ -54,7 +54,6 @@ class SwagLabsCheckout:
         name_and_price = {}
         cart_items = self.browser.find_elements(*self.CART_ITEM)
 
-        # TODO Figure out why the price div is not being found by Selenium
         for item in cart_items:
             print(item.find_element(*self.CART_ITEM_TITLE))
             print(item.find_element(*self.CART_ITEM_PRICE))
