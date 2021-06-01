@@ -18,8 +18,8 @@ def test_add_items_to_cart(browser, login_user):
 
         # Then the products' button changes to "Remove From Cart"
         assert products_page. \
-                   get_inventory_item_remove_from_cart_button_text(i). \
-                   lower() == 'remove'
+               get_inventory_item_remove_from_cart_button_text(i). \
+               lower() == 'remove'
 
     # And the cart badge number reflects the number of items in the cart
     assert int(products_page.get_cart_badge_number()) == \
@@ -61,8 +61,8 @@ def test_remove_items_from_cart_products_page(browser, login_user):
 
         # Then the item is removed from their cart
         assert products_page \
-                   .get_inventory_item_add_to_cart_button_text(i) \
-                   .lower() == 'add to cart'
+               .get_inventory_item_add_to_cart_button_text(i) \
+               .lower() == 'add to cart'
     assert products_page.cart_badge_does_not_exist()
 
 
@@ -97,7 +97,9 @@ def test_continue_shopping(browser, login_user):
     list_of_product_indexes = random_inventory_items()
     for i in list_of_product_indexes:
         products_page.add_inventory_item_to_cart(i)
-    number_of_items_in_cart = int(products_page.get_cart_badge_number())
+    number_of_items_in_cart = int(
+        products_page.get_cart_badge_number()
+    )
     products_page.open_shopping_cart()
 
     # When the user clicks the Continue Shopping button

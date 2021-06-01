@@ -61,4 +61,5 @@ def test_locked_out_user(browser):
 
     # And an error message is displayed on the login page indicating the user
     # is locked out
-    assert 'Sorry, this user has been locked out.' in login_page.get_error_message()
+    assert 'Sorry, this user has been locked out.' \
+           in login_page.get_error_message()
