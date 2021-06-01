@@ -27,10 +27,10 @@ class SwagLabsCart:
         self.browser = browser
 
     # Interaction Methods
-    def cart_page_title(self):
-        return self.browser.find_element(*self.CART_PAGE_TITLE)
+    def get_title(self):
+        return self.browser.find_element(*self.CART_PAGE_TITLE).text
 
-    def remove_cart_items(self):
+    def remove_all_cart_items(self):
         cart_items = self.browser.find_elements(*self.CART_ITEM)
 
         for item in cart_items:

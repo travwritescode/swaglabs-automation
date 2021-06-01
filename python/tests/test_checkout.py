@@ -19,7 +19,7 @@ def test_checkout(browser, login_user):
     list_of_product_indexes = random_inventory_items()
     for i in list_of_product_indexes:
         items_in_cart.update(
-            products_page.add_inventory_item_to_cart_by_index(i))
+            products_page.add_inventory_item_to_cart(i))
 
     # And the customer is on the cart page
     products_page.open_shopping_cart().click()
