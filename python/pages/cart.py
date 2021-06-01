@@ -42,7 +42,11 @@ class SwagLabsCart:
 
         for item in cart_items:
             name_and_price[item.find_element(*self.CART_ITEM_TITLE).text] = \
-                strip_non_price_characters(item.find_element(*self.CART_ITEM_PRICE).text)
+                strip_non_price_characters(
+                    item.find_element(
+                        *self.CART_ITEM_PRICE
+                    ).text
+                )
 
         return name_and_price
 
