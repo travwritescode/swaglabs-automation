@@ -8,7 +8,7 @@ Scenario: Customer can see items on cart page
   Given the user has added items to their cart
   When they navigate to the cart page
   Then they can see the items they have added to their cart
-  
+
 Scenario: Customer can remove items from the cart on the Swag Labs products page
   Given the user is on the Swag Labs products page
   And the user has added items to their cart
