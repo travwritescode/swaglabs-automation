@@ -19,13 +19,13 @@ class SwagLabsCheckout:
     INPUT_POSTAL_CODE = (By.ID, 'postal-code')
     CONTINUE_BUTTON = (By.ID, 'continue')
     CART_ITEM = (By.CLASS_NAME, 'cart_item')
-    CART_ITEM_TITLE = (By.XPATH, './/div[class="inventory_item_name"]')
-    CART_ITEM_PRICE = (By.XPATH, './/div[class="inventory_item_price"]')
+    CART_ITEM_TITLE = (By.XPATH, './/div[@class="inventory_item_name"]')
+    CART_ITEM_PRICE = (By.XPATH, './/div[@class="inventory_item_price"]')
     SUBTOTAL = (By.CLASS_NAME, 'summary_subtotal_label')
     TAX = (By.CLASS_NAME, 'summary_tax_label')
     TOTAL = (By.CLASS_NAME, 'summary_total_label')
     COMPLETE_TRANSACTION_BUTTON = (By.ID, 'finish')
-    COMPLETED_TRANSACTION_MESSAGE = (By.ID, 'complete-header')
+    COMPLETED_TRANSACTION_MESSAGE = (By.CLASS_NAME, 'complete-header')
     BACK_HOME_BUTTON = (By.ID, 'back-to-products')
 
     # Initializer
@@ -56,25 +56,27 @@ class SwagLabsCheckout:
 
         # TODO Figure out why the price div is not being found by Selenium
         for item in cart_items:
-            name_and_price[item.find_element(*self.CART_PAGE_TITLE).text] = \
-                item.find_element(*self.CART_ITEM_PRICE).text
+            print(item.find_element(*self.CART_ITEM_TITLE))
+            print(item.find_element(*self.CART_ITEM_PRICE))
+            name_and_price[item.find_element(*self.CART_ITEM_TITLE).text] = \
+                strip_non_price_characters(item.find_element(*self.CART_ITEM_PRICE).text)
 
         return name_and_price
 
     def get_subtotal_amount(self):
-        subtotal = self.browser.find_element(*self.SUBTOTAL)
+        subtotal = self.browser.find_element(*self.SUBTOTAL).text
         stripped_subtotal = strip_non_price_characters(subtotal)
 
         return stripped_subtotal
 
     def get_tax_amount(self):
-        tax_amount = self.browser.find_element(*self.TAX)
+        tax_amount = self.browser.find_element(*self.TAX).text
         stripped_tax_amount = strip_non_price_characters(tax_amount)
 
         return stripped_tax_amount
 
     def get_total_amount(self):
-        total = self.browser.find_element(*self.TOTAL)
+        total = self.browser.find_element(*self.TOTAL).text
         stripped_total = strip_non_price_characters(total)
 
         return stripped_total

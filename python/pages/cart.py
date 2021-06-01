@@ -9,8 +9,8 @@ class SwagLabsCart:
     # Locators
     CART_PAGE_TITLE = (By.CLASS_NAME, 'title')
     CART_ITEM = (By.CLASS_NAME, 'cart_item')
-    CART_ITEM_TITLE = (By.XPATH, './/div[class="inventory_item_name"]')
-    CART_ITEM_PRICE = (By.XPATH, './/div[class="inventory_item_price"]')
+    CART_ITEM_TITLE = (By.XPATH, './/div[@class="inventory_item_name"]')
+    CART_ITEM_PRICE = (By.XPATH, './/div[@class="inventory_item_price"]')
     CART_ITEM_REMOVE_FROM_CART = \
         (By.XPATH, './/button[contains(@id, "remove-")]')
     CHECKOUT_BUTTON = (By.ID, 'checkout')
@@ -35,7 +35,7 @@ class SwagLabsCart:
         cart_items = self.browser.find_elements(*self.CART_ITEM)
 
         for item in cart_items:
-            name_and_price[item.find_element(*self.CART_PAGE_TITLE).text] = \
+            name_and_price[item.find_element(*self.CART_ITEM_TITLE).text] = \
                 item.find_element(*self.CART_ITEM_PRICE).text
 
         return name_and_price

@@ -39,9 +39,10 @@ def test_checkout(browser, login_user):
 
     #  And all information about products and pricing looks correct
     items_at_checkout = checkout_page.get_cart_items()
+    cart_prices = [float(i) for i in items_in_cart.values()]
     assert items_at_checkout == items_in_cart
-    assert round(float(checkout_page.get_subtotal_amount()), 2) == sum(items_in_cart.values())
-    assert float(checkout_page.get_total_amount()) == sum(items_in_cart.values()) + \
+    assert round(float(checkout_page.get_subtotal_amount()), 2) == sum(cart_prices)
+    assert float(checkout_page.get_total_amount()) == sum(cart_prices) + \
            float(checkout_page.get_tax_amount())
 
     # When the customer clicks the finish button

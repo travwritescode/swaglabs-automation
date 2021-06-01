@@ -3,8 +3,13 @@ This module contains SwagLabsProducts
 the page object for the SwagLabs products page
 """
 
+import re
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
+
+
+def strip_non_price_characters(s):
+    return re.sub("[^0-9^.]", "", s)
 
 
 class SwagLabsProducts:
@@ -54,7 +59,7 @@ class SwagLabsProducts:
 
         name_and_price[
             inventory_item.find_element(*self.INVENTORY_ITEM_NAME).text] = \
-            inventory_item.find_element(*self.INVENTORY_ITEM_PRICE).text
+            strip_non_price_characters(inventory_item.find_element(*self.INVENTORY_ITEM_PRICE).text)
 
         return name_and_price
 
