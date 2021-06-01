@@ -3,8 +3,12 @@ name: CI build
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
+  merge:
+    branches:
+      - main
+
 
 jobs:
   build:
