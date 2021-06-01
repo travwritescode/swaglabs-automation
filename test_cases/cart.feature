@@ -4,6 +4,11 @@ Scenario: Customer can add items to the cart in Swag Labs
   Then the products' button changes to "Remove From Cart"
   And the cart badge number reflects the number of items in the cart
 
+Scenario: Customer can see items on cart page
+  Given the user has added items to their cart
+  When they navigate to the cart page
+  Then they can see the items they have added to their cart
+  
 Scenario: Customer can remove items from the cart on the Swag Labs products page
   Given the user is on the Swag Labs products page
   And the user has added items to their cart
