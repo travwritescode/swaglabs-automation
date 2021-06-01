@@ -46,12 +46,12 @@ class SwagLabsProducts:
         prices = [price.text for price in product_prices]
         return prices
 
-    def get_inventory_item_by_index(self, index):
+    def get_inventory_item(self, index):
         return self.browser.find_elements(*self.INVENTORY_ITEM_CARDS)[index]
 
-    def add_inventory_item_to_cart_by_index(self, index):
+    def add_inventory_item_to_cart(self, index):
         name_and_price = {}
-        inventory_item = self.get_inventory_item_by_index(index)
+        inventory_item = self.get_inventory_item(index)
 
         add_to_cart_button = inventory_item.find_element(
             *self.INVENTORY_ADD_TO_CART)
@@ -65,32 +65,32 @@ class SwagLabsProducts:
 
         return name_and_price
 
-    def get_inventory_item_add_to_cart_button_by_index(self, index):
-        inventory_item = self.get_inventory_item_by_index(index)
+    def get_inventory_item_add_to_cart_button_text(self, index):
+        inventory_item = self.get_inventory_item(index)
 
         add_to_cart_button = inventory_item.find_element(
             *self.INVENTORY_ADD_TO_CART)
-        return add_to_cart_button
+        return add_to_cart_button.text
 
-    def get_inventory_item_remove_button(self, index):
-        inventory_item = self.get_inventory_item_by_index(index)
+    def get_inventory_item_remove_from_cart_button_text(self, index):
+        inventory_item = self.get_inventory_item(index)
 
         remove_button = inventory_item.find_element(
             *self.INVENTORY_REMOVE_FROM_CART)
-        return remove_button
+        return remove_button.text
 
     def remove_inventory_item_from_cart(self, index):
-        inventory_item = self.get_inventory_item_by_index(index)
+        inventory_item = self.get_inventory_item(index)
 
         remove_button = inventory_item.find_element(
             *self.INVENTORY_REMOVE_FROM_CART)
         remove_button.click()
 
     def open_shopping_cart(self):
-        return self.browser.find_element(*self.SHOPPING_CART_LINK)
+        return self.browser.find_element(*self.SHOPPING_CART_LINK).click()
 
-    def get_cart_badge(self):
-        return self.browser.find_element(*self.SHOPPING_CART_BADGE)
+    def get_cart_badge_number(self):
+        return self.browser.find_element(*self.SHOPPING_CART_BADGE).text
 
     def cart_badge_does_not_exist(self):
         try:
@@ -99,6 +99,6 @@ class SwagLabsProducts:
         except NoSuchElementException:
             return True
 
-    def title(self):
+    def get_title(self):
         title = self.browser.find_element(*self.TITLE)
         return title.text

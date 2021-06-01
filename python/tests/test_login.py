@@ -19,7 +19,7 @@ def test_login(browser):
     login_page.login('standard_user', 'secret_sauce')
 
     # Then the user successfully logs in
-    assert products_page.title().lower() == 'products'
+    assert products_page.get_title().lower() == 'products'
 
     # And the products page is displayed
     assert len(products_page.get_product_names()) == 6
@@ -43,7 +43,7 @@ def test_incorrect_login(browser, username, password):
 
     # And an error message is displayed on the login page
     assert 'Username and password do not match any user in this service' \
-           in login_page.error_text()
+           in login_page.get_error_message()
 
 
 def test_locked_out_user(browser):
@@ -61,4 +61,5 @@ def test_locked_out_user(browser):
 
     # And an error message is displayed on the login page indicating the user
     # is locked out
-    assert 'Sorry, this user has been locked out.' in login_page.error_text()
+    assert 'Sorry, this user has been locked out.' \
+           in login_page.get_error_message()

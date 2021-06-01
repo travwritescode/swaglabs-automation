@@ -19,16 +19,17 @@ def test_checkout(browser, login_user):
     list_of_product_indexes = random_inventory_items()
     for i in list_of_product_indexes:
         items_in_cart.update(
-            products_page.add_inventory_item_to_cart_by_index(i))
+            products_page.add_inventory_item_to_cart(i)
+        )
 
     # And the customer is on the cart page
-    products_page.open_shopping_cart().click()
+    products_page.open_shopping_cart()
 
     # When the customer clicks the checkout button
     cart_page.click_checkout_button()
 
     # Then they are prompted to fill in their personal information
-    assert checkout_page.checkout_page_title().text.lower() == \
+    assert checkout_page.get_title().lower() == \
            'checkout: your information'
     checkout_page.fill_personal_information('Test', 'Customer', '55555')
 
@@ -36,7 +37,7 @@ def test_checkout(browser, login_user):
     checkout_page.click_continue_button()
 
     # Then a checkout overview confirmation page is displayed
-    assert checkout_page.checkout_page_title().text.lower() == \
+    assert checkout_page.get_title().lower() == \
            'checkout: overview'
 
     #  And all information about products and pricing looks correct
@@ -52,7 +53,7 @@ def test_checkout(browser, login_user):
     checkout_page.complete_transaction()
 
     # Then a thank you message is displayed on the checkout complete page
-    assert checkout_page.checkout_page_title().text.lower() == \
+    assert checkout_page.get_title().lower() == \
            'checkout: complete!'
     assert checkout_page.get_transaction_complete_message() == \
            'thank you for your order'
@@ -61,4 +62,4 @@ def test_checkout(browser, login_user):
     checkout_page.return_home()
 
     # Then they are returned to the products page
-    assert products_page.title().lower() == 'products'
+    assert products_page.get_title().lower() == 'products'

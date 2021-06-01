@@ -33,8 +33,8 @@ class SwagLabsCheckout:
         self.browser = browser
 
     # Interaction Methods
-    def checkout_page_title(self):
-        return self.browser.find_element(*self.CHECKOUT_PAGE_TITLE)
+    def get_title(self):
+        return self.browser.find_element(*self.CHECKOUT_PAGE_TITLE).text
 
     def fill_personal_information(self, first_name, last_name, postal_code):
         input_first_name = self.browser.find_element(*self.INPUT_FIRST_NAME)
@@ -54,7 +54,6 @@ class SwagLabsCheckout:
         name_and_price = {}
         cart_items = self.browser.find_elements(*self.CART_ITEM)
 
-        # TODO Figure out why the price div is not being found by Selenium
         for item in cart_items:
             print(item.find_element(*self.CART_ITEM_TITLE))
             print(item.find_element(*self.CART_ITEM_PRICE))

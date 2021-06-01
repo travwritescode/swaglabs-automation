@@ -32,7 +32,7 @@ class SwagLabsLoginPage:
         login_button = self.browser.find_element(*self.LOGIN_BUTTON)
         login_button.click()
 
-    def error_text(self):
+    def get_error_message(self):
         error = self.browser.find_element(*self.LOGIN_ERROR)
         return error.text
 
@@ -43,7 +43,7 @@ class SwagLabsLoginPage:
             return False
         return True
 
-    def verify_page(self):
+    def is_loaded(self):
         try:
             self.browser.find_element(*self.LOGIN_BUTTON)
         except NoSuchElementException:
