@@ -33,8 +33,8 @@ class SwagLabsCheckout:
         self.browser = browser
 
     # Interaction Methods
-    def checkout_page_title(self):
-        return self.browser.find_element(*self.CHECKOUT_PAGE_TITLE)
+    def get_title(self):
+        return self.browser.find_element(*self.CHECKOUT_PAGE_TITLE).text
 
     def fill_personal_information(self, first_name, last_name, postal_code):
         input_first_name = self.browser.find_element(*self.INPUT_FIRST_NAME)
