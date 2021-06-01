@@ -2,7 +2,13 @@
 This module contains SwagLabsCart
 the page model object for the cart when checking out
 """
+
+import re
 from selenium.webdriver.common.by import By
+
+
+def strip_non_price_characters(s):
+    return re.sub("[^0-9^.]", "", s)
 
 
 class SwagLabsCart:
@@ -36,7 +42,7 @@ class SwagLabsCart:
 
         for item in cart_items:
             name_and_price[item.find_element(*self.CART_ITEM_TITLE).text] = \
-                item.find_element(*self.CART_ITEM_PRICE).text
+                strip_non_price_characters(item.find_element(*self.CART_ITEM_PRICE).text)
 
         return name_and_price
 
