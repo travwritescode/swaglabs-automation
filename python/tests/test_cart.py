@@ -109,7 +109,8 @@ def test_continue_shopping(browser, login_user):
     assert products_page.get_title().lower() == 'products'
 
     # And the cart remains the same
-    assert int(products_page.get_cart_badge_number()) == number_of_items_in_cart
+    assert int(products_page.get_cart_badge_number()) == \
+           number_of_items_in_cart
 
 
 def random_inventory_items():
