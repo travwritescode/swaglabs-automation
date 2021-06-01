@@ -26,6 +26,24 @@ def test_add_items_to_cart(browser, login_user):
            len(list_of_product_indexes)
 
 
+def test_items_in_cart(browser, login_user):
+    # Given the user has added items to their cart
+    products_page = SwagLabsProducts(browser)
+    items_in_cart = {}
+    list_of_product_indexes = random_inventory_items()
+    for i in list_of_product_indexes:
+        items_in_cart.update(
+            products_page.add_inventory_item_to_cart_by_index(i))
+
+    # When they navigate to the cart page
+    products_page.open_shopping_cart().click()
+    cart_page = SwagLabsCart(browser)
+    cart_items = cart_page.get_cart_items()
+
+    # Then they can see the items they have added to their cart
+    assert items_in_cart == cart_items
+
+
 def test_remove_items_from_cart_products_page(browser, login_user):
     # Given the user is on the Swag Labs products page
     products_page = SwagLabsProducts(browser)
