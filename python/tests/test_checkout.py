@@ -28,20 +28,23 @@ def test_checkout(browser, login_user):
     cart_page.click_checkout_button()
 
     # Then they are prompted to fill in their personal information
-    assert checkout_page.checkout_page_title().text.lower() == 'checkout: your information'
+    assert checkout_page.checkout_page_title().text.lower() == \
+           'checkout: your information'
     checkout_page.fill_personal_information('Test', 'Customer', '55555')
 
     # When the customer clicks the continue button
     checkout_page.click_continue_button()
 
     # Then a checkout overview confirmation page is displayed
-    assert checkout_page.checkout_page_title().text.lower() == 'checkout: overview'
+    assert checkout_page.checkout_page_title().text.lower() == \
+           'checkout: overview'
 
     #  And all information about products and pricing looks correct
     items_at_checkout = checkout_page.get_cart_items()
     cart_prices = [float(i) for i in items_in_cart.values()]
     assert items_at_checkout == items_in_cart
-    assert round(float(checkout_page.get_subtotal_amount()), 2) == sum(cart_prices)
+    assert round(float(checkout_page.get_subtotal_amount()), 2) == \
+           sum(cart_prices)
     assert float(checkout_page.get_total_amount()) == sum(cart_prices) + \
            float(checkout_page.get_tax_amount())
 
@@ -49,8 +52,10 @@ def test_checkout(browser, login_user):
     checkout_page.complete_transaction()
 
     # Then a thank you message is displayed on the checkout complete page
-    assert checkout_page.checkout_page_title().text.lower() == 'checkout: complete!'
-    assert checkout_page.get_transaction_complete_message() == 'thank you for your order'
+    assert checkout_page.checkout_page_title().text.lower() == \
+           'checkout: complete!'
+    assert checkout_page.get_transaction_complete_message() == \
+           'thank you for your order'
 
     # When the customer clicks the back home button
     checkout_page.return_home()

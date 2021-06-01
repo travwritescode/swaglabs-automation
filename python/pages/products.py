@@ -59,7 +59,9 @@ class SwagLabsProducts:
 
         name_and_price[
             inventory_item.find_element(*self.INVENTORY_ITEM_NAME).text] = \
-            strip_non_price_characters(inventory_item.find_element(*self.INVENTORY_ITEM_PRICE).text)
+            strip_non_price_characters(
+                inventory_item.find_element(*self.INVENTORY_ITEM_PRICE).text
+            )
 
         return name_and_price
 

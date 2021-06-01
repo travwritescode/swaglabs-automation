@@ -59,7 +59,9 @@ class SwagLabsCheckout:
             print(item.find_element(*self.CART_ITEM_TITLE))
             print(item.find_element(*self.CART_ITEM_PRICE))
             name_and_price[item.find_element(*self.CART_ITEM_TITLE).text] = \
-                strip_non_price_characters(item.find_element(*self.CART_ITEM_PRICE).text)
+                strip_non_price_characters(
+                    item.find_element(*self.CART_ITEM_PRICE).text
+                )
 
         return name_and_price
 
@@ -82,12 +84,16 @@ class SwagLabsCheckout:
         return stripped_total
 
     def complete_transaction(self):
-        finish_button = self.browser.find_element(*self.COMPLETE_TRANSACTION_BUTTON)
+        finish_button = self.browser.find_element(
+            *self.COMPLETE_TRANSACTION_BUTTON
+        )
 
         finish_button.click()
 
     def get_transaction_complete_message(self):
-        transaction_complete_message = self.browser.find_element(*self.COMPLETED_TRANSACTION_MESSAGE)
+        transaction_complete_message = self.browser.find_element(
+            *self.COMPLETED_TRANSACTION_MESSAGE
+        )
 
         return transaction_complete_message.text.lower()
 
