@@ -46,8 +46,8 @@ def test_checkout(browser, login_user):
     assert items_at_checkout == items_in_cart
     assert round(float(checkout_page.get_subtotal_amount()), 2) == \
            sum(cart_prices)
-    assert float(checkout_page.get_total_amount()) == sum(cart_prices) + \
-           float(checkout_page.get_tax_amount())
+    assert sum(cart_prices) + float(checkout_page.get_tax_amount()) \
+           == float(checkout_page.get_total_amount())
 
     # When the customer clicks the finish button
     checkout_page.complete_transaction()
